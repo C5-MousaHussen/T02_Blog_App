@@ -1,0 +1,9 @@
+.navbar{
+    width: 100%;
+}
+
+.collapse {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
