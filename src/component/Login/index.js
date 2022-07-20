@@ -17,9 +17,15 @@ const Login = () => {
         `https://jsonplaceholder.typicode.com/users?username=${name}&email=${email}`
       )
       .then((result) => {
+        console.log();
+
         setUsers(result.data);
         if (result.data.length) {
           history("/home");
+          localStorage.setItem("id", JSON.stringify(result.data.name));
+          localStorage.setItem("name", JSON.stringify(result.data[0].name));
+          localStorage.setItem("id", JSON.stringify(result.data[0].id));
+
           return;
         } else if (name.length && email.length) {
           setMessag("User not found");
@@ -36,7 +42,6 @@ const Login = () => {
   useEffect(() => {
     accessUser();
   }, []);
-
 
   return (
     <div className="contanierLogin">
