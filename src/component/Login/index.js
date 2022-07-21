@@ -1,9 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import {toLogin} from "../redux/reducers/auth"
 import "./style.css";
 
 const Login = () => {
+
+// Dispatch
+const dispatch = useDispatch();
+
   const [users, setUsers] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +23,7 @@ const Login = () => {
         `https://jsonplaceholder.typicode.com/users?username=${name}&email=${email}`
       )
       .then((result) => {
-        console.log();
+        dispatch(toLogin(result.data.id));
 
         setUsers(result.data);
         if (result.data.length) {

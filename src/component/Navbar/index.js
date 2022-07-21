@@ -1,12 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {  useNavigate } from "react-router";
-
+import {toLogout} from "../redux/reducers/auth"
 const Navbar = () => {
+
+  //Navigate
 const history = useNavigate()
 
-const [name,setName] = useState(localStorage.getItem("name")||'')
+  //Dispatch
+  const dispatch = useDispatch()
+
+const nam = JSON.parse(localStorage.getItem("name"));
+
+const id  = JSON.parse(localStorage.getItem("id"));
+
+const [name,setName] =useState (nam||'')
 
 const logout = ()=>{
+  dispatch(toLogout());
   history("/")
   localStorage.clear()
 }
@@ -29,18 +40,20 @@ const logout = ()=>{
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
-              <a className="nav-link" href="home">
+              <a className="nav-link" href="/home">
                 Posts 
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="users">
+              <a className="nav-link" href="/users">
                 Users
               </a>
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">
-            <h1 className="form-control mr-sm-2">{name}</h1>
+            <button onClick={()=>{
+              history(`/profile/${id}`)
+            }} className="form-control mr-sm-2">{name}</button>
         
           </form>
           <button type="button" className="btn btn-secondary" onClick={logout}>Logout</button>
